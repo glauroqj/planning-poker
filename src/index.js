@@ -2,9 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 /** firebase */
-import firebase from 'firebase/app'
-import { credentials } from './credentials'
-console.log('< CREDENTIAL > ', credentials)
+// import firebase from 'firebase/app'
+import credentials from './credentials'
 /** routes */
 import Routes from './routes/Routes'
 
@@ -12,17 +11,16 @@ import Routes from './routes/Routes'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle, Theme } from './assets/style'
 
+console.log('< CREDENTIAL > ', credentials)
 
 ReactDOM.render(
   <React.StrictMode>
 
     <GlobalStyle />
 
-    <Provider store={store}>
-      <ThemeProvider theme={Theme}>
-        <Routes />
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider theme={Theme}>
+      <Routes />
+    </ThemeProvider>
 
   </React.StrictMode>,
   document.getElementById('root')

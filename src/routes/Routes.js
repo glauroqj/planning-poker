@@ -50,7 +50,8 @@ const Routes = () => {
       <Suspense fallback={ <Loading text='Loading...' /> }>
         <Switch>
           <Route exact path="/" component={Home} />
-          <PrivateRoute exact path="/room/:roomID" component={Room} />
+          <Route exact path="/room/:roomID" component={Room} />
+          {/* <PrivateRoute exact path="/room/:roomID" component={Room} /> */}
           <Redirect push to="/" />
         </Switch>
       </Suspense>

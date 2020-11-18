@@ -24,9 +24,11 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar variant="dense">
         <El.NavbarContainer>
-          <Typography variant="h6">
-            Planning Poker Hit <DirectionsRunIcon />
-          </Typography>
+          <Link to='/'>
+            <Typography variant="h6">
+              Planning Poker Hit <DirectionsRunIcon />
+            </Typography>
+          </Link>
           {user?.displayName && (
             <>
               <IconButton

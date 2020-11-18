@@ -6,3 +6,17 @@ export const RoomContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const RoomContainerBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  justify-content: center;
+  align-items: center;
+`
+
+/** BOARD */
+
+export const BoardContainer = styled.div`
+  display: flex;
+`

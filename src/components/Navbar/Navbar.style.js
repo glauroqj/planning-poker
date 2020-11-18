@@ -5,6 +5,11 @@ export const NavbarContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+
+  > a {
+    text-decoration: none;
+    color: inherit;
+  }
 `
 
 export const NavbarLinkItem = styled.div`

@@ -44,9 +44,9 @@ const Home = () => {
         })
         .catch(e => console.warn('< GET ROOM : ERROR > ', e))
     } else {
-      setState({...state, loading: false})
+      setState({...state, loading: false, createdRoom: false})
     }
-  }, [])
+  }, [user])
 
   const handleKeys = e => {
     const keyActions = {
@@ -150,7 +150,14 @@ const Home = () => {
 
               {state.createdRoom && (
                 <Link to={`${state.roomPayload.url}`}>
-                  go to room {`${state.roomPayload.url}`}
+                  <Button
+                    variant='contained'
+                    color='secondary'
+                    size='large'
+                    fullWidth
+                  >
+                    go to {`${state.roomPayload.url}`} <MeetingRoomIcon />
+                  </Button>
                 </Link>
               )}
             </>

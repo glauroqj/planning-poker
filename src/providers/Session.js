@@ -20,8 +20,8 @@ const SessionProvider = ({ children }) => {
   }
 
   const logoutMethod = async () => {
-    const result = await logoutService()
-    setUser(result)
+    await logoutService()
+    setUser({})
   }
 
   const checkUserLogin = async () => {

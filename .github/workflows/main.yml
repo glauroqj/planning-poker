@@ -27,6 +27,7 @@ jobs:
     - name: Build Project
       run: yarn build
       env:
+        CI: ""
         REACT_APP_API_KEY_FIREBASE: ${{ secrets.REACT_APP_API_KEY_FIREBASE }}
 
     - name: Install Firebase Tools

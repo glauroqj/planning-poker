@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, memo } from 'react'
 import { Link } from 'react-router-dom'
 /** style */
 import * as El from './Navbar.style'
@@ -54,13 +54,6 @@ const Navbar = () => {
                 open={open}
                 onClose={()=> setAnchorEl(null)}
               >
-                <MenuItem>
-                  <El.NavbarLinkItem>
-                    <Link to='/create-room'>
-                      Create Room <MeetingRoomIcon />
-                    </Link>
-                  </El.NavbarLinkItem>
-                </MenuItem>
                 <MenuItem onClick={() => logoutMethod()}>Logout</MenuItem>
               </Menu>
             </>
@@ -71,4 +64,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

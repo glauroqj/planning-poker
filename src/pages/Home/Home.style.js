@@ -13,3 +13,10 @@ export const HomeContainerBody = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const HomeForm = styled.div`
+  display: flex;
+  max-width: 320px;
+  width: 100%;
+  flex-flow: column;
+`

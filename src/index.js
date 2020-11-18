@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 /** firebase */
-// import firebase from 'firebase/app'
+import firebase from 'firebase/app'
 import credentials from './credentials'
 /** routes */
 import Routes from './routes/Routes'
@@ -11,7 +11,9 @@ import Routes from './routes/Routes'
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle, Theme } from './assets/style'
 
-console.log('< CREDENTIAL > ', credentials)
+
+/** start */
+firebase.initializeApp(credentials)
 
 ReactDOM.render(
   <React.StrictMode>

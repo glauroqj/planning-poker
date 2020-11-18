@@ -18,11 +18,10 @@ const Board = ({user, roomName}) => {
       name: user.displayName,
       photo: user.photoURL,
       email: user.email,
-      uid: user.uid,
-      vote: ''
+      uid: user.uid
     }],
-    options: [0,1,2,3,5,8,13,21,34,55,89,'?'],
-    chooseValue: ''
+    votes: {},
+    options: [0,1,2,3,5,8,13,21,34,55,89,'?']
   })
 
   useEffect(() => {
@@ -30,11 +29,12 @@ const Board = ({user, roomName}) => {
     db.collection('rooms')
       .doc(String(roomName))
       .onSnapshot(doc => {
-        console.log('< BOARD LISTENER > ', doc.data())
         if (doc.exists && isMounted) {
+          console.log('< BOARD LISTENER > ', doc.data())
           setState({
             ...state,
-            members: [...doc.data().membersOnline]
+            members: [...doc.data().membersOnline],
+            votes: {...doc.data().votes}
           })
         }
       })
@@ -58,14 +58,12 @@ const Board = ({user, roomName}) => {
           name: user.displayName,
           photo: user.photoURL,
           email: user.email,
-          uid: user.uid,
-          vote: ''
+          uid: user.uid
         })
       })
       .then(() => {
         console.log('< add member : done >')
       })
-
   }
 
   const removeMember = () => {
@@ -80,14 +78,16 @@ const Board = ({user, roomName}) => {
       })
   }
 
-  const updateVote = (vote) => {
+  const updateVote = vote => {
     db.collection('rooms')
     .doc(String(roomName))
     .set({
-      membersOnline: state.members.map(item => item.uid === user.uid ? {...item, vote: vote}: item)
+      votes: {
+        [user.uid]: vote
+      }
     }, {merge: true})
     .then(() => {
-      console.log('< add member : done >')
+      console.log('< update vote : done >')
     })
   }
 
@@ -99,8 +99,8 @@ const Board = ({user, roomName}) => {
           {state.options.map((item, idx) => (
             <Button 
               key={idx}
-              color={state.chooseValue === item ? 'secondary' : 'primary'}
-              variant={state.chooseValue === item ? 'contained' : 'outlined'}
+              color={state.votes[user.uid] === item ? 'secondary' : 'primary'}
+              variant={state.votes[user.uid] === item ? 'contained' : 'outlined'}
               onClick={() => {
                 // setState({...state, chooseValue: item})
                 updateVote(item)

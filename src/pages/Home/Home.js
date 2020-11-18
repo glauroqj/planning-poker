@@ -88,6 +88,7 @@ const Home = () => {
           .doc(String(form))
           .set({
             membersOnline: [],
+            votes: {},
             roomOwner: user.uid,
             roomName: form,
             url: `/room/${form}`

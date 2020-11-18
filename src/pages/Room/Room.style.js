@@ -20,3 +20,11 @@ export const RoomContainerBody = styled.div`
 export const BoardContainer = styled.div`
   display: flex;
 `
+
+export const BoardButtonValues = styled.div`
+  display: flex;
+`
+
+export const BoardMembers = styled.div`
+  display: flex;
+`

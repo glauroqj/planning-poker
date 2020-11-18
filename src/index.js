@@ -10,8 +10,10 @@ import Routes from './routes/Routes'
 /** style */
 import { ThemeProvider as ThemePRoviderMaterialUI } from '@material-ui/styles'
 import { ThemeProvider } from 'styled-components'
-import { GlobalStyle, Theme, ThemeMaterialUI } from './assets/style'
+import { GlobalStyle, Theme, ThemeMaterialUI } from 'assets/style'
 
+/** provider */
+import { SessionProvider } from 'providers/Session'
 
 /** start */
 firebase.initializeApp(credentials)
@@ -23,7 +25,11 @@ ReactDOM.render(
 
     <ThemePRoviderMaterialUI theme={ThemeMaterialUI}>
       <ThemeProvider theme={Theme}>
-        <Routes />
+
+        <SessionProvider>
+          <Routes />
+        </SessionProvider>
+
       </ThemeProvider>
     </ThemePRoviderMaterialUI>
 

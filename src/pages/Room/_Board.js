@@ -85,7 +85,6 @@ const Board = ({user, roomName}) => {
         membersOnline: state.members.filter(item => item.uid !== user.uid),
         showVotes: false,
         votes: {...state.votes}
-        // membersOnline: firebase.firestore.FieldValue.arrayRemove(String(user.uid))
       })
       .then(() => {
         console.log('< remove member : done >')

@@ -83,7 +83,7 @@ const Room = () => {
                 </>
               )}
 
-              {!state.isValidRoom && (
+              {user?.displayName && !state.isValidRoom && (
                 <Link to='/'>
                   <Button
                     variant='contained'

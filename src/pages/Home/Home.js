@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 /** icons */
 import EmailIcon from '@material-ui/icons/Email'
 
+
 const Home = () => {
   const { user, loginMethod } = useContext(SessionContext)
 
@@ -18,16 +19,21 @@ const Home = () => {
 
   return (
     <El.HomeContainer className='animated fadeIn'>
+
       
-      <Button
-        variant='contained'
-        color='primary'
-        size='large'
-        startIcon={<EmailIcon />}
-        onClick={() => loginMethod()}
-      >
-        login google
-      </Button>
+      <El.HomeContainerBody>
+        
+        <Button
+          variant='contained'
+          color='secondary'
+          size='large'
+          startIcon={<EmailIcon />}
+          onClick={() => loginMethod()}
+        >
+          login google
+        </Button>
+
+      </El.HomeContainerBody>
 
     </El.HomeContainer>
   )

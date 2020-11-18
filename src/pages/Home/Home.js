@@ -43,6 +43,8 @@ const Home = () => {
           }
         })
         .catch(e => console.warn('< GET ROOM : ERROR > ', e))
+    } else {
+      setState({...state, loading: false})
     }
   }, [])
 

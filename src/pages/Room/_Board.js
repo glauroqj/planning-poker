@@ -107,7 +107,6 @@ const Board = ({user, roomName}) => {
 
   return (
     <El.BoardContainer>
-
       <El.BoardTitle>
         <Typography variant="body2" color="textSecondary" component="h3">
           Online Members: {state.members.length}

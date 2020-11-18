@@ -1,3 +1,5 @@
+import { createMuiTheme } from '@material-ui/core/styles'
+
 const Breakpoints = {
   xs: '640px',
   sm: '830px',
@@ -6,10 +8,12 @@ const Breakpoints = {
 }
 
 const Colors = {
+  c_main_light: '#7AB8E1',
   c_main: '#3498db',
   c_main_dark: '#2980b9',
-  c_secondary: '#34495e',
-  c_secondary_dark: '#2c3e50',
+  c_secondary_light: '#E1B67A',
+  c_secondary: '#DB9735',
+  c_secondary_dark: '#C2842F',
   c_light: '#ffffff',
   c_gray: '#eeeeee'
 }
@@ -26,8 +30,7 @@ const Spaces = {
 }
 
 const Fonts = {
-  default: 'Roboto, sans-serif',
-  secondary: 'Raleway, sans-serif'
+  default: 'Roboto, sans-serif'
 }
 
 const FontSize = {
@@ -46,6 +49,21 @@ const FontWeight = {
   bold: 700
 }
 
+
+export const ThemeMaterialUI = createMuiTheme({
+  palette: {
+    primary: {
+      light: Colors.c_main_light,
+      main: Colors.c_main,
+      dark: Colors.c_main_dark
+    },
+    secondary: {
+      light: Colors.c_secondary_light,
+      main: Colors.c_secondary,
+      dark: Colors.c_secondary_dark
+    }
+  }
+})
 
 /** THEME */
 export const Theme = {

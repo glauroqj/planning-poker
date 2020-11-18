@@ -1,7 +1,8 @@
 import { GlobalStyle } from './globalStyle'
-import { Theme } from './theme'
+import { Theme, ThemeMaterialUI } from './theme'
 
 export {
   GlobalStyle,
-  Theme
+  Theme,
+  ThemeMaterialUI
 }

@@ -8,8 +8,9 @@ import credentials from './credentials'
 import Routes from './routes/Routes'
 
 /** style */
+import { ThemeProvider as ThemePRoviderMaterialUI } from '@material-ui/styles'
 import { ThemeProvider } from 'styled-components'
-import { GlobalStyle, Theme } from './assets/style'
+import { GlobalStyle, Theme, ThemeMaterialUI } from './assets/style'
 
 
 /** start */
@@ -20,9 +21,11 @@ ReactDOM.render(
 
     <GlobalStyle />
 
-    <ThemeProvider theme={Theme}>
-      <Routes />
-    </ThemeProvider>
+    <ThemePRoviderMaterialUI theme={ThemeMaterialUI}>
+      <ThemeProvider theme={Theme}>
+        <Routes />
+      </ThemeProvider>
+    </ThemePRoviderMaterialUI>
 
   </React.StrictMode>,
   document.getElementById('root')

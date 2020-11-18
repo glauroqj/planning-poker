@@ -21,12 +21,7 @@ const Routes = () => {
         {...rest}
         render={props => user
           ? <Component {...props} user={user} /> 
-          : (
-            <>
-              <Loading text='Unauthorized...' />
-              <Redirect push to="/" /> 
-            </>
-          )
+          : <Redirect push to="/" />
         }
       />
     )

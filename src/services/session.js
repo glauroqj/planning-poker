@@ -14,3 +14,26 @@ const fetchUserService = () => (
     })
   })
 )
+
+const loginService = () => (
+  new Promise(resolve => {
+
+    firebase.auth()
+    .signInWithPopup(googleProvider)
+    .then(async response => {
+
+      console.log('< LOGIN SERVICE > ', response)
+      resolve(response.user)
+    })
+    .catch(err => {
+      console.warn('< ERROR :  LOGIN SERVICE > ', err)
+      resolve(false)
+    })
+
+  })
+)
+
+export {
+  fetchUserService,
+  loginService
+}

@@ -4,22 +4,19 @@ import * as El from './Home.style'
 /** providers */
 import { SessionContext } from 'providers/Session'
 /** components */
+import Navbar from 'components/Navbar/Navbar'
 import Button from '@material-ui/core/Button'
 /** icons */
 import EmailIcon from '@material-ui/icons/Email'
 
 
 const Home = () => {
-  const { user, loginMethod } = useContext(SessionContext)
-
-  useEffect(() => {
-    console.log('< HOME : USER > ', user)
-  }, [user])
-
+  const {loginMethod } = useContext(SessionContext)
 
   return (
     <El.HomeContainer className='animated fadeIn'>
 
+      <Navbar />
       
       <El.HomeContainerBody>
         

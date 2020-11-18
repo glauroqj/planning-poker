@@ -30,10 +30,18 @@ export const BoardButtonValues = styled.div`
 export const BoardMembers = styled.div`
   display: flex;
   width: 100%;
-  max-width: 220px;
+`
+export const BoardCard = styled.div`
+  padding: 15px;
+  max-width: 180px;
+  width: 100%;
 `
 export const BoardMembersImage = styled.div`
   display: flex;
   justify-content: center;
   min-height: 96px;
+
+  > img {
+    border-radius: 50%;
+  }
 `

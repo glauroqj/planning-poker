@@ -38,12 +38,13 @@ const Board = ({user, roomName}) => {
       .doc(String(roomName))
       .onSnapshot(doc => {
         if (doc.exists && isMounted) {
-          // console.log('< BOARD LISTENER > ', doc.data())
+          // console.log('< BOARD LISTENER > ', doc.data(), state)
+          const allData = doc.data()
           setState({
             ...state,
             members: [...doc.data().membersOnline],
             votes: {...doc.data().votes},
-            ...doc.data()
+            ...allData
           })
         }
       })
@@ -127,33 +128,35 @@ const Board = ({user, roomName}) => {
 
       <El.BoardMembers>
        {state.members.map((item, idx) => (
-          <Card key={idx}>
-            <El.BoardMembersImage>
-              <img
-                src={item.photo}
-                alt='user image'
-                title={`${item.name}`}
-              />
-            </El.BoardMembersImage>
+         <El.BoardCard key={idx}>
+            <Card>
+              <El.BoardMembersImage>
+                <img
+                  src={item.photo}
+                  alt='user image'
+                  title={`${item.name}`}
+                />
+              </El.BoardMembersImage>
 
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {item.name}
-              </Typography>
-              {state.roomOwner === user.uid && (
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Owner <EmojiEventsIcon />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="h2">
+                  {item.name}
                 </Typography>
+                {state.roomOwner === item.uid && (
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    Owner <EmojiEventsIcon />
+                  </Typography>
+                )}
+              </CardContent>
+              {state.showVotes && (
+                <CardActions>
+                  <Button size="large" color="primary" variant="outlined" fullWidth>
+                    { state.votes[item.uid] }
+                  </Button>
+                </CardActions>
               )}
-            </CardContent>
-            {state.showVotes && (
-              <CardActions>
-                <Button size="large" color="primary" variant="outlined" fullWidth>
-                  { state.votes[user.uid] }
-                </Button>
-              </CardActions>
-            )}
-          </Card>
+            </Card>
+         </El.BoardCard>
        ))}
       </El.BoardMembers>
 

@@ -21,7 +21,9 @@ export const BoardContainer = styled.div`
   display: flex;
   flex-flow: column;
 `
-
+export const BoardTitle = styled.div`
+  margin-bottom: 15px;
+`
 export const BoardButtonValues = styled.div`
   display: flex;
   margin-bottom: 15px;

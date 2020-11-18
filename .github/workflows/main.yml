@@ -1,0 +1,37 @@
+name: Deploy to Firebase
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Install Node.Js
+      uses: actions/setup-node@master
+      with:
+          node-version: '13.x'
+
+    - name: Install Yarn
+      run: npm install yarn
+
+    - name: Install Project Dependencies
+      run: yarn install
+
+    - name: Build Project
+      run: yarn build
+      env:
+        CI: ""
+
+    - name: Install Firebase Tools
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting:planning-poker-hit"
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

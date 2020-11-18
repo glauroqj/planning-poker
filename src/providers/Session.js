@@ -2,7 +2,8 @@ import React, { useState, useEffect, createContext } from 'react'
 /** services */
 import {
   fetchUserService, 
-  loginService
+  loginService,
+  logoutService
 } from 'services/session'
 
 const SessionContext = createContext({
@@ -18,7 +19,10 @@ const SessionProvider = ({ children }) => {
     setUser(result)
   }
 
-  const logoutMethod = () => {}
+  const logoutMethod = async () => {
+    const result = await logoutService()
+    setUser(result)
+  }
 
   const checkUserLogin = async () => {
     const result = await fetchUserService()

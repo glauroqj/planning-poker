@@ -13,7 +13,6 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 /** icons */
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun'
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const Navbar = () => {

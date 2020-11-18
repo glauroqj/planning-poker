@@ -33,7 +33,19 @@ const loginService = () => (
   })
 )
 
+const logoutService = () => (
+  new Promise(resolve => {
+
+    firebase.auth()
+    .signOut()
+    .then(() => resolve({}) )
+    .catch(() => resolve({}) )
+
+  })
+)
+
 export {
   fetchUserService,
-  loginService
+  loginService,
+  logoutService
 }

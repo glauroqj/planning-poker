@@ -89,6 +89,7 @@ const Home = () => {
           .set({
             membersOnline: [],
             votes: {},
+            showVotes: false,
             roomOwner: user.uid,
             roomName: form,
             url: `/room/${form}`

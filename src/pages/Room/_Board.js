@@ -5,6 +5,12 @@ import * as El from './Room.style'
 /** components */
 import Button from '@material-ui/core/Button'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+/** icons */
+import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -21,7 +27,9 @@ const Board = ({user, roomName}) => {
       uid: user.uid
     }],
     votes: {},
-    options: [0,1,2,3,5,8,13,21,34,55,89,'?']
+    options: [0,1,2,3,5,8,13,21,34,55,89,'?'],
+    showVotes: false,
+    roomOwner: false
   })
 
   useEffect(() => {
@@ -30,11 +38,12 @@ const Board = ({user, roomName}) => {
       .doc(String(roomName))
       .onSnapshot(doc => {
         if (doc.exists && isMounted) {
-          console.log('< BOARD LISTENER > ', doc.data())
+          // console.log('< BOARD LISTENER > ', doc.data())
           setState({
             ...state,
             members: [...doc.data().membersOnline],
-            votes: {...doc.data().votes}
+            votes: {...doc.data().votes},
+            ...doc.data()
           })
         }
       })
@@ -67,10 +76,14 @@ const Board = ({user, roomName}) => {
   }
 
   const removeMember = () => {
+    delete state.votes[user.uid]
+
     db.collection('rooms')
       .doc(String(roomName))
       .update({
-        membersOnline: state.members.filter(item => item.uid !== user.uid)
+        membersOnline: state.members.filter(item => item.uid !== user.uid),
+        showVotes: false,
+        votes: {...state.votes}
         // membersOnline: firebase.firestore.FieldValue.arrayRemove(String(user.uid))
       })
       .then(() => {
@@ -113,7 +126,35 @@ const Board = ({user, roomName}) => {
       </El.BoardButtonValues>
 
       <El.BoardMembers>
+       {state.members.map((item, idx) => (
+          <Card key={idx}>
+            <El.BoardMembersImage>
+              <img
+                src={item.photo}
+                alt='user image'
+                title={`${item.name}`}
+              />
+            </El.BoardMembersImage>
 
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {item.name}
+              </Typography>
+              {state.roomOwner === user.uid && (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Owner <EmojiEventsIcon />
+                </Typography>
+              )}
+            </CardContent>
+            {state.showVotes && (
+              <CardActions>
+                <Button size="large" color="primary" variant="outlined" fullWidth>
+                  { state.votes[user.uid] }
+                </Button>
+              </CardActions>
+            )}
+          </Card>
+       ))}
       </El.BoardMembers>
 
     </El.BoardContainer>

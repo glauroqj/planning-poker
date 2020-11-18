@@ -19,12 +19,21 @@ export const RoomContainerBody = styled.div`
 
 export const BoardContainer = styled.div`
   display: flex;
+  flex-flow: column;
 `
 
 export const BoardButtonValues = styled.div`
   display: flex;
+  margin-bottom: 15px;
 `
 
 export const BoardMembers = styled.div`
   display: flex;
+  width: 100%;
+  max-width: 220px;
+`
+export const BoardMembersImage = styled.div`
+  display: flex;
+  justify-content: center;
+  min-height: 96px;
 `

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useContext } from 'react'
+import React, { useEffect, Suspense, lazy, useContext, memo } from 'react'
 import {
   BrowserRouter,
   Route,
@@ -14,10 +14,15 @@ const Home = lazy(() => import('pages/Home/Home'))
 const Room = lazy(() => import('pages/Room/Room'))
 
 const Routes = () => {
-  const { user } = useContext(SessionContext)
+  const { user, checkUserLogin } = useContext(SessionContext)
+
+  useEffect(() => {
+    checkUserLogin()
+  }, [])
 
   const PrivateRoute = ({ component: Component, ...rest }) => {
-    console.log('< PRIVATE ROUTE > ', user)
+    console.log('< PRIVATE ROUTE : CHECK USER > ', user)
+
     return (
       <Route
         {...rest}
@@ -45,4 +50,4 @@ const Routes = () => {
   )
 }
 
-export default Routes
+export default memo(Routes)

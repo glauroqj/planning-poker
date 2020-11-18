@@ -16,7 +16,11 @@ const SessionProvider = ({ children }) => {
 
   const logoutMethod = () => {}
 
-  const checkUserLogin = () => {}
+  const checkUserLogin = async () => {
+    const result = await fetchUserService()
+    console.log('< CHECK USER LOGIN > ', result)
+    setUser(result)
+  }
 
   return (
     <SessionContext.Provider value={{ user, checkUserLogin, loginMethod, logoutMethod }}>

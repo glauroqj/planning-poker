@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 /** services */
 import {
   fetchUserService, 
@@ -12,7 +12,11 @@ const SessionContext = createContext({
 const SessionProvider = ({ children }) => {
   const [user, setUser] = useState({})
 
-  const loginMethod = () => {}
+  const loginMethod = async () => {
+    const result = await loginService()
+    console.log('< LOGIN METHOD > ', result)
+    setUser(result)
+  }
 
   const logoutMethod = () => {}
 

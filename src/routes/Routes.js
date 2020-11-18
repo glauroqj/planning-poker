@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy, useContext, memo } from 'react'
+import React, { useState, useEffect, Suspense, lazy, useContext, memo } from 'react'
 import {
   BrowserRouter,
   Route,
@@ -15,10 +15,18 @@ const Room = lazy(() => import('pages/Room/Room'))
 
 const Routes = () => {
   const { user, checkUserLogin } = useContext(SessionContext)
+  const [state, setState] = useState({
+    loading: true
+  })
 
   useEffect(() => {
-    checkUserLogin()
+    isValid()
   }, [])
+
+  const isValid = async () => {
+    await checkUserLogin()
+    setState({...state, loading: false})
+  }
 
   const PrivateRoute = ({ component: Component, ...rest }) => {
     console.log('< PRIVATE ROUTE : CHECK USER > ', user)
@@ -26,7 +34,7 @@ const Routes = () => {
     return (
       <Route
         {...rest}
-        render={props => user?.name
+        render={props => user?.displayName && user?.emailVerified
           ? <Component {...props} user={user} /> 
           : <Redirect push to="/" />
         }
@@ -34,14 +42,15 @@ const Routes = () => {
     )
   }
 
-  return (    
+  if (state.loading) return <Loading text='Loading...' />
+
+  return (
     <BrowserRouter>
         
       <Suspense fallback={ <Loading text='Loading...' /> }>
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute exact path="/room/:roomID" component={Room} />
-          {/* <Route exact path="/detail/:city/:temp/:min/:max" component={Detail} /> */}
           <Redirect push to="/" />
         </Switch>
       </Suspense>

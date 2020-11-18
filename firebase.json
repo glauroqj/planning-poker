@@ -1,12 +1,11 @@
 {
   "hosting": {
+    "site": "planning-poker-hit",
     "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "/build/asset-manifest.json",
-      "/build/static/js/*.js.map"
+      "**/node_modules/**"
     ],
     "rewrites": [
       {

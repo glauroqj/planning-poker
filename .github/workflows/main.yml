@@ -29,9 +29,18 @@ jobs:
       env:
         CI: ""
 
+    # - uses: actions/checkout@v2
+    # - uses: FirebaseExtended/action-hosting-deploy@v0
+    #   with:
+    #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+    #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLANNING_POKER_3326C }}'
+    #     projectId: planning-poker-3326c
+    #   env:
+    #     FIREBASE_CLI_PREVIEWS: hostingchannels
+
     - name: Install Firebase Tools
       uses: w9jds/firebase-action@master
       with:
-        args: deploy --only hosting:planning-poker-hit"
+        args: deploy --only hosting:planning-poker-3326c"
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

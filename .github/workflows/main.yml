@@ -41,6 +41,6 @@ jobs:
     - name: Install Firebase Tools
       uses: w9jds/firebase-action@master
       with:
-        args: deploy --only hosting:planning-poker-3326c"
+        args: deploy --only hosting:planning-poker-hit
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

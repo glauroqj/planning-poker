@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 /** icons */
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
+import DoneIcon from '@material-ui/icons/Done'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
@@ -21,7 +22,7 @@ const Board = ({user, roomName}) => {
   const db = firebase.firestore()
   const [state, setState] = useState({
     votes: {},
-    options: [0,1,2,3,5,8,13,21,34,55,89,'?'],
+    options: ['0',1,2,3,5,8,13,21,34,55,89,'?'],
     showVotes: false,
     roomOwner: false,
     membersOnline: []
@@ -37,10 +38,13 @@ const Board = ({user, roomName}) => {
           const allData = doc.data()
           setState({
             ...state,
-            votes: {...doc.data().votes},
             ...allData
           })
-          console.log('< BOARD LISTENER > ', allData, state)
+
+          setTimeout(() => {
+            console.log('< BOARD LISTENER > ', allData, state)
+
+          }, 3000)
         }
       })
 
@@ -56,17 +60,10 @@ const Board = ({user, roomName}) => {
   }, [])
 
   const listenerCloseWindow = useCallback((e) => {
-    console.log('< CLOSE WINDOW >')
     removeMember()
     e.preventDefault()
     e.returnValue = ''
   }, [])
-
-  // window.addEventListener('beforeunload', function (e) {
-  //     e.preventDefault();
-  //     e.returnValue = '';
-  // });
-
 
   const addMember = () => {
     db.collection('rooms')
@@ -169,6 +166,11 @@ const Board = ({user, roomName}) => {
                 {state.roomOwner === item.uid && (
                   <Typography variant="body2" color="textSecondary" component="p">
                     Owner <EmojiEventsIcon />
+                  </Typography>
+                )}
+                {state.votes[item.uid] && (
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    Voted <DoneIcon />
                   </Typography>
                 )}
               </CardContent>

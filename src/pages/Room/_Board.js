@@ -30,34 +30,38 @@ const Board = ({user, roomName}) => {
 
   useEffect(() => {
     window.addEventListener('beforeunload', listenerCloseWindow)
-    isMounted=true
+    isMounted = true
+    startListenerRoom()
+
+    return () => {
+      isMounted = false
+      /** remove player from room */
+      removeMember()
+      // window.removeEventListener('beforeunload', listenerCloseWindow)
+    }
+  }, [])
+
+  const startListenerRoom = useCallback(() => {
+    console.log('< startListenerRoom >')
+    
     db.collection('rooms')
       .doc(String(roomName))
       .onSnapshot(doc => {
-        if (doc.exists && isMounted) {
+        
+        if (!isMounted) return false
+
+        if (doc.exists) {
           const allData = doc.data()
           setState({
             ...state,
             ...allData
           })
-
-          setTimeout(() => {
-            console.log('< BOARD LISTENER > ', allData, state)
-
-          }, 3000)
         }
       })
 
     /** add user */  
     addMember()
-
-    return () => {
-      isMounted=false
-      /** remove player from room */
-      removeMember()
-      window.removeEventListener('beforeunload', listenerCloseWindow)
-    }
-  }, [])
+  },[])
 
   const listenerCloseWindow = useCallback((e) => {
     removeMember()
@@ -66,6 +70,7 @@ const Board = ({user, roomName}) => {
   }, [])
 
   const addMember = () => {
+
     db.collection('rooms')
       .doc(String(roomName))
       .update({
@@ -82,7 +87,7 @@ const Board = ({user, roomName}) => {
   }
 
   const removeMember = () => {
-
+ 
     db.collection('rooms')
       .doc(String(roomName))
       .get()
@@ -109,6 +114,7 @@ const Board = ({user, roomName}) => {
   }
 
   const updateVote = vote => {
+
     db.collection('rooms')
     .doc(String(roomName))
     .set({
@@ -148,7 +154,8 @@ const Board = ({user, roomName}) => {
       </El.BoardButtonValues>
 
       <El.BoardMembers>
-       {state.membersOnline.map((item, idx) => (
+       {state.membersOnline.length > 0 && 
+        state.membersOnline.map((item, idx) => (
          <El.BoardCard key={idx} className="animated fadeIn">
             <Card>
               <El.BoardMembersImage>

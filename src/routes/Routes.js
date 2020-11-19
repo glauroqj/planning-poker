@@ -28,19 +28,19 @@ const Routes = () => {
     setState({...state, loading: false})
   }
 
-  const PrivateRoute = ({ component: Component, ...rest }) => {
-    console.log('< PRIVATE ROUTE : CHECK USER > ', user)
+  // const PrivateRoute = ({ component: Component, ...rest }) => {
+  //   console.log('< PRIVATE ROUTE : CHECK USER > ', user)
 
-    return (
-      <Route
-        {...rest}
-        render={props => user?.displayName && user?.emailVerified
-          ? <Component {...props} user={user} /> 
-          : <Redirect push to="/" />
-        }
-      />
-    )
-  }
+  //   return (
+  //     <Route
+  //       {...rest}
+  //       render={props => user?.displayName && user?.emailVerified
+  //         ? <Component {...props} user={user} /> 
+  //         : <Redirect push to="/" />
+  //       }
+  //     />
+  //   )
+  // }
 
   if (state.loading) return <Loading text='Loading...' />
 

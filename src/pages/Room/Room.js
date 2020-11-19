@@ -27,7 +27,6 @@ const Room = () => {
   const { roomID } = useParams()
 
   useEffect(() => {
-
     if (!user?.displayName) {
       setState({
         ...state,

@@ -116,7 +116,13 @@ const Home = () => {
                   color='secondary'
                   size='large'
                   startIcon={<EmailIcon />}
-                  onClick={() => loginMethod()}
+                  onClick={() => {
+                    setState({
+                      ...state,
+                      loading: true
+                    })
+                    loginMethod()
+                  }}
                 >
                   login google
                 </Button>
@@ -150,7 +156,7 @@ const Home = () => {
                 </form>
               )}
 
-              {state.createdRoom && (
+              {user?.displayName && state.createdRoom && (
                 <Link to={`${state.roomPayload.url}`}>
                   <Button
                     variant='contained'

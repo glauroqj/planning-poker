@@ -1,4 +1,4 @@
-import React, { useState, useContext, memo } from 'react'
+import React, { useState, useContext, memo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 /** style */
 import * as El from './Navbar.style'
@@ -18,8 +18,11 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 const Navbar = () => {
   const { user, logoutMethod } = useContext(SessionContext)
   const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
   
+  useEffect(() => {
+    if (!user?.displayName) setAnchorEl(null)
+  }, [user])
+
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
@@ -40,23 +43,22 @@ const Navbar = () => {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={()=> setAnchorEl(null)}
-              >
-                <MenuItem onClick={() => logoutMethod()}>Logout</MenuItem>
-              </Menu>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  open={anchorEl ? true : false}
+                  onClose={() => setAnchorEl(null) }
+                >
+                  <MenuItem onClick={() => logoutMethod()}>Logout</MenuItem>
+                </Menu>
             </>
           )}
         </El.NavbarContainer>

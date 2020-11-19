@@ -16,8 +16,6 @@ import DoneIcon from '@material-ui/icons/Done'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-let isMounted = false
-
 const Board = ({user, roomName}) => {
   const db = firebase.firestore()
   const [state, setState] = useState({
@@ -30,26 +28,10 @@ const Board = ({user, roomName}) => {
 
   useEffect(() => {
     window.addEventListener('beforeunload', listenerCloseWindow)
-    isMounted = true
-    startListenerRoom()
 
-    return () => {
-      isMounted = false
-      /** remove player from room */
-      removeMember()
-      // window.removeEventListener('beforeunload', listenerCloseWindow)
-    }
-  }, [])
-
-  const startListenerRoom = useCallback(() => {
-    console.log('< startListenerRoom >')
-    
-    db.collection('rooms')
+    const unsubscribe = db.collection('rooms')
       .doc(String(roomName))
       .onSnapshot(doc => {
-        
-        if (!isMounted) return false
-
         if (doc.exists) {
           const allData = doc.data()
           setState({
@@ -61,7 +43,14 @@ const Board = ({user, roomName}) => {
 
     /** add user */  
     addMember()
-  },[])
+
+    return () => {
+      /** remove player from room */
+      unsubscribe()
+      removeMember()
+      // window.removeEventListener('beforeunload', listenerCloseWindow)
+    }
+  }, [])
 
   const listenerCloseWindow = useCallback((e) => {
     removeMember()

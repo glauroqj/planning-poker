@@ -28,7 +28,10 @@ jobs:
       run: yarn build
       env:
         CI: ""
-        REACT_APP_API_KEY_FIREBASE: ${{ secrets.REACT_APP_API_KEY_FIREBASE }}
+        REACT_APP_KEY_FIREBASE: ${{ secrets.REACT_APP_KEY_FIREBASE }}
+        REACT_APP_PROJECT_ID: ${{ secrets.REACT_APP_PROJECT_ID }}
+        REACT_APP_DB_URL: ${{ secrets.REACT_APP_DB_URL }}
+        REACT_APP_AUTH_DOMAIN: ${{ secrets.REACT_APP_AUTH_DOMAIN }}
 
     - name: Install Firebase Tools
       uses: w9jds/firebase-action@master

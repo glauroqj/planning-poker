@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 /** style */
 import * as El from './Room.style'
@@ -28,6 +28,7 @@ const Board = ({user, roomName}) => {
   })
 
   useEffect(() => {
+    window.addEventListener('beforeunload', listenerCloseWindow)
     isMounted=true
     db.collection('rooms')
       .doc(String(roomName))
@@ -50,8 +51,21 @@ const Board = ({user, roomName}) => {
       isMounted=false
       /** remove player from room */
       removeMember()
+      window.removeEventListener('beforeunload', listenerCloseWindow)
     }
   }, [])
+
+  const listenerCloseWindow = useCallback((e) => {
+    console.log('< CLOSE WINDOW >')
+    removeMember()
+    e.preventDefault()
+    e.returnValue = ''
+  }, [])
+
+  // window.addEventListener('beforeunload', function (e) {
+  //     e.preventDefault();
+  //     e.returnValue = '';
+  // });
 
 
   const addMember = () => {

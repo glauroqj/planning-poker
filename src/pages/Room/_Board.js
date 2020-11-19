@@ -20,16 +20,11 @@ let isMounted = false
 const Board = ({user, roomName}) => {
   const db = firebase.firestore()
   const [state, setState] = useState({
-    members: [{
-      name: user.displayName,
-      photo: user.photoURL,
-      email: user.email,
-      uid: user.uid
-    }],
     votes: {},
     options: [0,1,2,3,5,8,13,21,34,55,89,'?'],
     showVotes: false,
-    roomOwner: false
+    roomOwner: false,
+    membersOnline: []
   })
 
   useEffect(() => {
@@ -38,14 +33,13 @@ const Board = ({user, roomName}) => {
       .doc(String(roomName))
       .onSnapshot(doc => {
         if (doc.exists && isMounted) {
-          // console.log('< BOARD LISTENER > ', doc.data(), state)
           const allData = doc.data()
           setState({
             ...state,
-            members: [...doc.data().membersOnline],
             votes: {...doc.data().votes},
             ...allData
           })
+          console.log('< BOARD LISTENER > ', allData, state)
         }
       })
 
@@ -77,17 +71,29 @@ const Board = ({user, roomName}) => {
   }
 
   const removeMember = () => {
-    delete state.votes[user.uid]
 
     db.collection('rooms')
       .doc(String(roomName))
-      .update({
-        membersOnline: state.members.filter(item => item.uid !== user.uid),
-        showVotes: false,
-        votes: {...state.votes}
-      })
-      .then(() => {
-        console.log('< remove member : done >')
+      .get()
+      .then(doc => {
+
+        if (doc.exists) {
+          const { membersOnline, votes } = doc.data()
+          // console.log('< remove values > ',membersOnline, votes)
+          delete votes[user.uid]
+
+          db.collection('rooms')
+            .doc(String(roomName))
+            .update({
+              membersOnline: membersOnline.filter(item => item.uid !== user.uid),
+              showVotes: false,
+              votes: {...votes}
+            })
+            .then(() => {
+              console.log('< remove member : done >')
+            })
+        }
+
       })
   }
 
@@ -108,7 +114,7 @@ const Board = ({user, roomName}) => {
     <El.BoardContainer>
       <El.BoardTitle>
         <Typography variant="body2" color="textSecondary" component="h3">
-          Online Members: {state.members.length}
+          Online Members: {state.membersOnline.length}
         </Typography>
       </El.BoardTitle>
       
@@ -131,8 +137,8 @@ const Board = ({user, roomName}) => {
       </El.BoardButtonValues>
 
       <El.BoardMembers>
-       {state.members.map((item, idx) => (
-         <El.BoardCard key={idx}>
+       {state.membersOnline.map((item, idx) => (
+         <El.BoardCard key={idx} className="animated fadeIn">
             <Card>
               <El.BoardMembersImage>
                 <img

@@ -77,7 +77,6 @@ const Home = () => {
           ...state,
           createdRoom: true,
           roomPayload: {
-            membersOnline: [],
             roomOwner: user.uid,
             roomName: form,
             url: `/room/${form}`

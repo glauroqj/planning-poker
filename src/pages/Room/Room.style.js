@@ -24,6 +24,11 @@ export const BoardContainer = styled.div`
 export const BoardTitle = styled.div`
   margin-bottom: 15px;
   padding: 10px;
+
+  b {
+    font-weight: 700;
+    color: #7befb2;
+  }
 `
 export const BoardButtonValues = styled.div`
   display: flex;
@@ -68,4 +73,7 @@ export const BoardMembersImage = styled.div`
   > img {
     border-radius: 50%;
   }
+`
+export const BoardCardButtonRevealVote = styled.div`
+  margin: 5px 0;
 `

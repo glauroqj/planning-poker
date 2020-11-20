@@ -120,7 +120,7 @@ const Board = ({user, roomName}) => {
     <El.BoardContainer>
       <El.BoardTitle>
         <Typography variant="body2" color="textSecondary" component="h3">
-          Online Members: {state.membersOnline.length}
+          Online Members: <b>{state.membersOnline.length}</b>
         </Typography>
       </El.BoardTitle>
       
@@ -169,6 +169,59 @@ const Board = ({user, roomName}) => {
                     Voted <DoneIcon />
                   </Typography>
                 )}
+
+                {user.uid === item.uid && 
+                 state.roomOwner === user.uid &&
+                 !state.showVotes && (
+                  <El.BoardCardButtonRevealVote>
+                    <Button 
+                      size="medium"
+                      color="secondary"
+                      variant="contained"
+                      fullWidth
+                      disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
+                      onClick={() => {
+                        db.collection('rooms')
+                        .doc(String(roomName))
+                        .set({
+                          showVotes: true
+                        }, {merge: true})
+                        .then(() => {
+                          console.log('< update showVotes : done >')
+                        })
+                      }}
+                    >
+                      Reveal Votes
+                    </Button>
+                  </El.BoardCardButtonRevealVote>
+                )}
+
+                {user.uid === item.uid && 
+                 state.roomOwner === user.uid &&
+                 state.showVotes && (
+                  <El.BoardCardButtonRevealVote>
+                    <Button 
+                      size="medium"
+                      color="secondary"
+                      variant="outlined"
+                      fullWidth
+                      onClick={() => {
+                        db.collection('rooms')
+                        .doc(String(roomName))
+                        .set({
+                          showVotes: false,
+                          votes: {}
+                        }, {merge: true})
+                        .then(() => {
+                          console.log('< update showVotes : done >')
+                        })
+                      }}
+                    >
+                      Reset Votes
+                    </Button>
+                  </El.BoardCardButtonRevealVote>
+                )}
+
               </CardContent>
               {state.showVotes && (
                 <CardActions>

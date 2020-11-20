@@ -22,6 +22,8 @@ export const BoardContainer = styled.div`
   flex-flow: column;
 `
 export const BoardTitle = styled.div`
+  display: flex;
+  justify-content: space-around;
   margin-bottom: 15px;
   padding: 10px;
 

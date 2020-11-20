@@ -102,22 +102,9 @@ const Board = ({user, roomName}) => {
       })
   }
 
-  const updateVote = vote => {
-
-    db.collection('rooms')
-    .doc(String(roomName))
-    .set({
-      votes: {
-        [user.uid]: vote
-      }
-    }, {merge: true})
-    .then(() => {
-      console.log('< update vote : done >')
-    })
-  }
-
   return (
     <El.BoardContainer>
+
       <El.BoardTitle>
         <Typography variant="body2" color="textSecondary" component="h3">
           Online Members: <b>{state.membersOnline.length}</b>
@@ -132,8 +119,16 @@ const Board = ({user, roomName}) => {
               color={state.votes[user.uid] === item ? 'secondary' : 'primary'}
               variant={state.votes[user.uid] === item ? 'contained' : 'outlined'}
               onClick={() => {
-                // setState({...state, chooseValue: item})
-                updateVote(item)
+                db.collection('rooms')
+                .doc(String(roomName))
+                .set({
+                  votes: {
+                    [user.uid]: item
+                  }
+                }, {merge: true})
+                .then(() => {
+                  console.log('< update vote : done >')
+                })
               }}
             >
               {item}

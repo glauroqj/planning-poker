@@ -38,7 +38,6 @@ export const BoardButtonValues = styled.div`
   padding: 10px;
   flex-flow: row wrap;
 `
-
 export const BoardMembers = styled.div`
   display: flex;
   width: 100%;

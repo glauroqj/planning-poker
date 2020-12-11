@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 /** components */
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -10,6 +10,8 @@ import { ReactComponent as ScrumIcon }  from 'assets/images/scrum.svg'
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 
 const CreateRoom = ({createRoom, changeState}) => {
+
+  const [urlName, setUrlName] = useState('')
 
   const handleKeys = e => {
     const keyActions = {
@@ -23,8 +25,14 @@ const CreateRoom = ({createRoom, changeState}) => {
   }
 
   const verifyRoomName = value => {
-
-    // changeState(e.target.value)
+    if (value.length <= 0) {
+      setUrlName('')
+      return null
+    }
+    if (value.length > 30) return null
+    const finalUrl = value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
+    setUrlName(finalUrl)
+    changeState(finalUrl)
   }
 
   return (
@@ -43,6 +51,9 @@ const CreateRoom = ({createRoom, changeState}) => {
           margin="normal"
           onChange={e => verifyRoomName(e.target.value)}
         />
+        {urlName !== '' && (
+          <h6>Url: {urlName}</h6>
+        )}
         <Button
           variant='contained'
           color='secondary'

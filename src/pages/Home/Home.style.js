@@ -9,7 +9,7 @@ export const HomeContainer = styled.div`
 
 export const HomeContainerBody = styled.div`
   display: flex;
-  height: 80vh;
+  height: 70vh;
   justify-content: center;
   align-items: center;
 `
@@ -19,4 +19,9 @@ export const HomeForm = styled.div`
   max-width: 320px;
   width: 100%;
   flex-flow: column;
+
+  > svg {
+    width: 100%;
+    height: auto;
+  }
 `

@@ -15,6 +15,8 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+/** svg */
+import { ReactComponent as Scrum }  from 'assets/images/scrum.svg'
 
 const Home = () => {
   const { user, loginMethod } = useContext(SessionContext)
@@ -126,13 +128,15 @@ const Home = () => {
                   login google
                 </Button>
               )}
-
+              
+              {/** create room */}
               {user?.displayName && !state.createdRoom && (
                 <form 
                   autoComplete="off"
                   onKeyDown={handleKeys}
                 >
                   <El.HomeForm>
+                    <Scrum />
                     <TextField 
                       required
                       id="outlined-basic"

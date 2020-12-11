@@ -9,8 +9,9 @@ import Navbar from 'components/Navbar/Navbar'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Loading from 'components/Loading/Loading'
+
+import Login from './_login'
 /** icons */
-import EmailIcon from '@material-ui/icons/Email'
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 /** firebase */
 import firebase from 'firebase/app'
@@ -112,21 +113,10 @@ const Home = () => {
           : (
             <>
               {!user?.displayName && (
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  size='large'
-                  startIcon={<EmailIcon />}
-                  onClick={() => {
-                    setState({
-                      ...state,
-                      loading: true
-                    })
-                    loginMethod()
-                  }}
-                >
-                  login google
-                </Button>
+                <Login 
+                  loginMethod={() => loginMethod()}
+                  changeState={value => setState({ ...state, ...value })}
+                />
               )}
               
               {/** create room */}

@@ -17,7 +17,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 /** svg */
-import { ReactComponent as Scrum }  from 'assets/images/scrum.svg'
+import { ReactComponent as ScrumIcon }  from 'assets/images/scrum.svg'
 
 const Home = () => {
   const { user, loginMethod } = useContext(SessionContext)
@@ -126,7 +126,7 @@ const Home = () => {
                   onKeyDown={handleKeys}
                 >
                   <El.HomeForm>
-                    <Scrum />
+                    <ScrumIcon />
                     <TextField 
                       required
                       id="outlined-basic"

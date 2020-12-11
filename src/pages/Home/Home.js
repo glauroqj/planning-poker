@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useContext, memo } from 'react'
-import { Link } from 'react-router-dom'
 /** style */
 import * as El from './Home.style'
 /** providers */
 import { SessionContext } from 'providers/Session'
 /** components */
 import Navbar from 'components/Navbar/Navbar'
-import Button from '@material-ui/core/Button'
 import Loading from 'components/Loading/Loading'
 
 import Login from './_login'
 import CreateRoom from './_createRoom'
+import AccessRoom from './_accessRoom'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-/** icons */
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 
 const Home = () => {
   const { user, loginMethod } = useContext(SessionContext)
@@ -113,45 +110,13 @@ const Home = () => {
                   createRoom={() => createRoom()}
                   changeState={value => setForm(value)}
                 />
-                // <form 
-                //   autoComplete="off"
-                //   onKeyDown={handleKeys}
-                // >
-                //   <El.HomeForm>
-                //     <ScrumIcon />
-                //     <TextField 
-                //       required
-                //       id="outlined-basic"
-                //       label="Room Name" 
-                //       variant="outlined"
-                //       fullWidth
-                //       margin="normal"
-                //       onChange={e => setForm(e.target.value)}
-                //     />
-                //     <Button
-                //       variant='contained'
-                //       color='secondary'
-                //       size='large'
-                //       fullWidth
-                //       onClick={() => createRoom()}
-                //     >
-                //       create room <MeetingRoomIcon />
-                //     </Button>
-                //   </El.HomeForm>
-                // </form>
               )}
 
+              {/** access room */}
               {user?.displayName && state.createdRoom && (
-                <Link to={`${state.roomPayload.url}`}>
-                  <Button
-                    variant='contained'
-                    color='secondary'
-                    size='large'
-                    fullWidth
-                  >
-                    go to {`${state.roomPayload.url}`} <MeetingRoomIcon />
-                  </Button>
-                </Link>
+                <AccessRoom 
+                  link={state.roomPayload.url}
+                />
               )}
             </>
           )

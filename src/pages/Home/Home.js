@@ -7,17 +7,15 @@ import { SessionContext } from 'providers/Session'
 /** components */
 import Navbar from 'components/Navbar/Navbar'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Loading from 'components/Loading/Loading'
 
 import Login from './_login'
-/** icons */
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
+import CreateRoom from './_createRoom'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-/** svg */
-import { ReactComponent as ScrumIcon }  from 'assets/images/scrum.svg'
+/** icons */
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 
 const Home = () => {
   const { user, loginMethod } = useContext(SessionContext)
@@ -51,16 +49,6 @@ const Home = () => {
     }
   }, [user])
 
-  const handleKeys = e => {
-    const keyActions = {
-      13: () => { // enter
-        createRoom()
-        e.preventDefault()
-      }
-    }
-    const callKeyActions = keyActions[e.keyCode]
-    if (typeof callKeyActions === 'function') callKeyActions()
-  }
 
   const createRoom = async () => {
 
@@ -121,32 +109,36 @@ const Home = () => {
               
               {/** create room */}
               {user?.displayName && !state.createdRoom && (
-                <form 
-                  autoComplete="off"
-                  onKeyDown={handleKeys}
-                >
-                  <El.HomeForm>
-                    <ScrumIcon />
-                    <TextField 
-                      required
-                      id="outlined-basic"
-                      label="Room Name" 
-                      variant="outlined"
-                      fullWidth
-                      margin="normal"
-                      onChange={e => setForm(e.target.value)}
-                    />
-                    <Button
-                      variant='contained'
-                      color='secondary'
-                      size='large'
-                      fullWidth
-                      onClick={() => createRoom()}
-                    >
-                      create room <MeetingRoomIcon />
-                    </Button>
-                  </El.HomeForm>
-                </form>
+                <CreateRoom
+                  createRoom={() => createRoom()}
+                  changeState={value => setForm(value)}
+                />
+                // <form 
+                //   autoComplete="off"
+                //   onKeyDown={handleKeys}
+                // >
+                //   <El.HomeForm>
+                //     <ScrumIcon />
+                //     <TextField 
+                //       required
+                //       id="outlined-basic"
+                //       label="Room Name" 
+                //       variant="outlined"
+                //       fullWidth
+                //       margin="normal"
+                //       onChange={e => setForm(e.target.value)}
+                //     />
+                //     <Button
+                //       variant='contained'
+                //       color='secondary'
+                //       size='large'
+                //       fullWidth
+                //       onClick={() => createRoom()}
+                //     >
+                //       create room <MeetingRoomIcon />
+                //     </Button>
+                //   </El.HomeForm>
+                // </form>
               )}
 
               {user?.displayName && state.createdRoom && (

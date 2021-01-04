@@ -13,6 +13,8 @@ export const NavbarContainer = styled.div`
 `
 export const NavbarUser = styled.div`
   display: flex;
+  border: 1px solid #f5f5f5;
+  border-radius: 50%;
 
   &:hover {
     cursor: pointer;
@@ -21,6 +23,8 @@ export const NavbarUser = styled.div`
   > img {
     height: 100%;
     width: auto;
+    max-height: 40px;
+    border-radius: 50%;
   }
 `
 

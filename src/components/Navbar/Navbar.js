@@ -44,15 +44,6 @@ const Navbar = () => {
               >
                 <img src={user.photoURL} alt={user.displayName} title={user.displayName} />
               </El.NavbarUser>
-              {/* <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={e => setAnchorEl(e.currentTarget)}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton> */}
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}

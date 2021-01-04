@@ -11,6 +11,18 @@ export const NavbarContainer = styled.div`
     color: inherit;
   }
 `
+export const NavbarUser = styled.div`
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  > img {
+    height: 100%;
+    width: auto;
+  }
+`
 
 export const NavbarLinkItem = styled.div`
   > a {

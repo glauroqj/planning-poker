@@ -19,6 +19,8 @@ const Navbar = () => {
   const { user, logoutMethod } = useContext(SessionContext)
   const [anchorEl, setAnchorEl] = useState(null)
   
+  console.log('< NAVBAR : USER > ', user)
+
   useEffect(() => {
     if (!user?.displayName) setAnchorEl(null)
   }, [user])
@@ -34,7 +36,15 @@ const Navbar = () => {
           </Link>
           {user?.displayName && (
             <>
-              <IconButton
+              <El.NavbarUser
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={e => setAnchorEl(e.currentTarget)}
+              >
+                <img src={user.photoURL} alt={user.displayName} title={user.displayName} />
+              </El.NavbarUser>
+              {/* <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
@@ -42,23 +52,23 @@ const Navbar = () => {
                 color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  open={anchorEl ? true : false}
-                  onClose={() => setAnchorEl(null) }
-                >
-                  <MenuItem onClick={() => logoutMethod()}>Logout</MenuItem>
-                </Menu>
+              </IconButton> */}
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                open={anchorEl ? true : false}
+                onClose={() => setAnchorEl(null) }
+              >
+                <MenuItem onClick={() => logoutMethod()}>Logout</MenuItem>
+              </Menu>
             </>
           )}
         </El.NavbarContainer>

@@ -23,6 +23,7 @@ const Board = ({user, roomName}) => {
     options: ['0',1,2,3,5,8,13,21,34,55,89,'?'],
     showVotes: false,
     roomOwner: false,
+    taskName: '',
     membersOnline: []
   })
 
@@ -179,9 +180,12 @@ const Board = ({user, roomName}) => {
                   )}
 
                   {user.uid === item.uid && 
-                  state.roomOwner === user.uid &&
-                  !state.showVotes && (
+                    state.roomOwner === user.uid &&
+                    !state.showVotes && (
                     <El.BoardCardButtonRevealVote>
+                      <input 
+                        placeholder='Task Name'
+                      />
                       <Button 
                         size="medium"
                         color="secondary"

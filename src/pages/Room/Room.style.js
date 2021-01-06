@@ -11,6 +11,7 @@ export const RoomContainerBody = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
 `
@@ -19,8 +20,28 @@ export const RoomContainerBody = styled.div`
 
 export const BoardContainer = styled.div`
   display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+`
+export const BoardTaskNameSection = styled.div`
+  display: flex;
+  flex-flow: column;
+  width: 30%;
+`
+export const BoardTaskNameTitle = styled.h4`
+  padding: 10px;
+  text-align: center;
+`
+export const BoardTaskNameBody = styled.div`
+  display: flex;
   flex-flow: column;
 `
+export const BoardSection = styled.div`
+  display: flex;
+  flex-flow: column;
+  width: 70%;
+`
+
 export const BoardTitle = styled.div`
   display: flex;
   justify-content: space-around;

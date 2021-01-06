@@ -105,131 +105,145 @@ const Board = ({user, roomName}) => {
   return (
     <El.BoardContainer>
 
-      <El.BoardTitle>
-        <Typography variant="body2" color="textSecondary" component="h3">
-          Online Members: <b>{state.membersOnline.length}</b>
-        </Typography>
-      </El.BoardTitle>
-      
-      <El.BoardButtonValues>
-        <ButtonGroup color="primary" size="large">
-          {state.options.map((item, idx) => (
-            <Button 
-              key={idx}
-              color={state.votes[user.uid] === item ? 'secondary' : 'primary'}
-              variant={state.votes[user.uid] === item ? 'contained' : 'outlined'}
-              onClick={() => {
-                db.collection('rooms')
-                .doc(String(roomName))
-                .set({
-                  votes: {
-                    [user.uid]: item
-                  }
-                }, {merge: true})
-                .then(() => {
-                  console.log('< update vote : done >')
-                })
-              }}
-            >
-              {item}
-            </Button>
-          ))}
-        </ButtonGroup>
-      </El.BoardButtonValues>
+      <El.BoardTaskNameSection>
+        <El.BoardTitle>
+          <Typography variant="body2" color="textSecondary" component="h3">
+            Voted Tasks
+          </Typography>
+        </El.BoardTitle>
+        <El.BoardTaskNameBody>
+          tasks name
+        </El.BoardTaskNameBody>
+      </El.BoardTaskNameSection>
 
-      <El.BoardMembers>
-       {state.membersOnline.length > 0 && 
-        state.membersOnline.map((item, idx) => (
-         <El.BoardCard key={idx} className="animated fadeIn">
-            <Card>
-              <El.BoardMembersImage>
-                <img
-                  src={item.photo}
-                  alt='user image'
-                  title={`${item.name}`}
-                />
-              </El.BoardMembersImage>
+      <El.BoardSection>
 
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="h2">
-                  {item.name}
-                </Typography>
-                {state.roomOwner === item.uid && (
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    Owner <EmojiEventsIcon />
+        <El.BoardTitle>
+          <Typography variant="body2" color="textSecondary" component="h3">
+            Online Members: <b>{state.membersOnline.length}</b>
+          </Typography>
+        </El.BoardTitle>
+        
+        <El.BoardButtonValues>
+          <ButtonGroup color="primary" size="large">
+            {state.options.map((item, idx) => (
+              <Button 
+                key={idx}
+                color={state.votes[user.uid] === item ? 'secondary' : 'primary'}
+                variant={state.votes[user.uid] === item ? 'contained' : 'outlined'}
+                onClick={() => {
+                  db.collection('rooms')
+                  .doc(String(roomName))
+                  .set({
+                    votes: {
+                      [user.uid]: item
+                    }
+                  }, {merge: true})
+                  .then(() => {
+                    console.log('< update vote : done >')
+                  })
+                }}
+              >
+                {item}
+              </Button>
+            ))}
+          </ButtonGroup>
+        </El.BoardButtonValues>
+
+        <El.BoardMembers>
+        {state.membersOnline.length > 0 && 
+          state.membersOnline.map((item, idx) => (
+          <El.BoardCard key={idx} className="animated fadeIn">
+              <Card>
+                <El.BoardMembersImage>
+                  <img
+                    src={item.photo}
+                    alt='user image'
+                    title={`${item.name}`}
+                  />
+                </El.BoardMembersImage>
+
+                <CardContent>
+                  <Typography gutterBottom variant="h6" component="h2">
+                    {item.name}
                   </Typography>
-                )}
-                {state.votes[item.uid] && (
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    Voted <DoneIcon />
-                  </Typography>
-                )}
+                  {state.roomOwner === item.uid && (
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Owner <EmojiEventsIcon />
+                    </Typography>
+                  )}
+                  {state.votes[item.uid] && (
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      Voted <DoneIcon />
+                    </Typography>
+                  )}
 
-                {user.uid === item.uid && 
-                 state.roomOwner === user.uid &&
-                 !state.showVotes && (
-                  <El.BoardCardButtonRevealVote>
-                    <Button 
-                      size="medium"
-                      color="secondary"
-                      variant="contained"
-                      fullWidth
-                      disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
-                      onClick={() => {
-                        db.collection('rooms')
-                        .doc(String(roomName))
-                        .set({
-                          showVotes: true
-                        }, {merge: true})
-                        .then(() => {
-                          console.log('< update showVotes : done >')
-                        })
-                      }}
-                    >
-                      Reveal Votes
+                  {user.uid === item.uid && 
+                  state.roomOwner === user.uid &&
+                  !state.showVotes && (
+                    <El.BoardCardButtonRevealVote>
+                      <Button 
+                        size="medium"
+                        color="secondary"
+                        variant="contained"
+                        fullWidth
+                        disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
+                        onClick={() => {
+                          db.collection('rooms')
+                          .doc(String(roomName))
+                          .set({
+                            showVotes: true
+                          }, {merge: true})
+                          .then(() => {
+                            console.log('< update showVotes : done >')
+                          })
+                        }}
+                      >
+                        Reveal Votes
+                      </Button>
+                    </El.BoardCardButtonRevealVote>
+                  )}
+
+                  {user.uid === item.uid && 
+                  state.roomOwner === user.uid &&
+                  state.showVotes && (
+                    <El.BoardCardButtonRevealVote>
+                      <Button 
+                        size="medium"
+                        color="secondary"
+                        variant="outlined"
+                        fullWidth
+                        onClick={() => {
+                          db.collection('rooms')
+                          .doc(String(roomName))
+                          .set({
+                            showVotes: false,
+                            votes: {}
+                          }, {merge: true})
+                          .then(() => {
+                            console.log('< update showVotes : done >')
+                          })
+                        }}
+                      >
+                        Reset Votes
+                      </Button>
+                    </El.BoardCardButtonRevealVote>
+                  )}
+
+                </CardContent>
+                {state.showVotes && (
+                  <CardActions>
+                    <Button size="large" color="primary" variant="outlined" fullWidth>
+                      { state.votes[item.uid] }
                     </Button>
-                  </El.BoardCardButtonRevealVote>
+                  </CardActions>
                 )}
-
-                {user.uid === item.uid && 
-                 state.roomOwner === user.uid &&
-                 state.showVotes && (
-                  <El.BoardCardButtonRevealVote>
-                    <Button 
-                      size="medium"
-                      color="secondary"
-                      variant="outlined"
-                      fullWidth
-                      onClick={() => {
-                        db.collection('rooms')
-                        .doc(String(roomName))
-                        .set({
-                          showVotes: false,
-                          votes: {}
-                        }, {merge: true})
-                        .then(() => {
-                          console.log('< update showVotes : done >')
-                        })
-                      }}
-                    >
-                      Reset Votes
-                    </Button>
-                  </El.BoardCardButtonRevealVote>
-                )}
-
-              </CardContent>
-              {state.showVotes && (
-                <CardActions>
-                  <Button size="large" color="primary" variant="outlined" fullWidth>
-                    { state.votes[item.uid] }
-                  </Button>
-                </CardActions>
-              )}
-            </Card>
-         </El.BoardCard>
-       ))}
-      </El.BoardMembers>
-
+              </Card>
+          </El.BoardCard>
+        ))}
+        </El.BoardMembers>
+        
+      </El.BoardSection>
     </El.BoardContainer>
   )
 }

@@ -140,24 +140,27 @@ const Board = ({user, roomName}) => {
   return (
     <El.BoardContainer>
 
-      {state.tasks.length > 0 && (
-        <El.BoardTaskNameSection isVisible={state.tasks.length > 0 ? true : false}>
-          <El.BoardTitle>
-            <Typography variant="body2" color="textSecondary" component="h3">
-              Voted Tasks
-            </Typography>
-          </El.BoardTitle>
-          <El.BoardTaskNameBody>
-
+      <El.BoardTaskNameSection isVisible={state.tasks.length > 0 ? true : false}>
+        <El.BoardTitle>
+          <Typography variant="body2" color="textSecondary" component="h3">
+            Voted Tasks
+          </Typography>
+        </El.BoardTitle>
+        <El.BoardTaskNameBody>
+          {state.tasks.length > 0 && (
             <List component="nav">
-              {state.tasks.map((item, idx) => (
-                <ListItem key={idx}>{item.name}: {item.average}</ListItem>
+              {state.tasks.map(item => (
+                <>
+                <ListItem>
+                  <ListItemText primary={item.name} secondary={item.average} />
+                </ListItem>
+                <Divider />
+                </>
               ))}
             </List>
-
-          </El.BoardTaskNameBody>
-        </El.BoardTaskNameSection>
-      )}
+          )}
+        </El.BoardTaskNameBody>
+      </El.BoardTaskNameSection>
 
       <El.BoardSection>
 
@@ -241,14 +244,16 @@ const Board = ({user, roomName}) => {
                         disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
                         onClick={() => {
 
-                          db.collection('rooms')
-                            .doc(String(roomName))
-                            .update({
-                              tasks: firebase.firestore.FieldValue.arrayUnion({
-                                name: String(state.taskName),
-                                average: Object.keys(state.votes).reduce((acc, cur) => acc = acc+state.votes[cur], 0) / Object.keys(state.votes).length
+                          if (state.tasks !== '') {
+                            db.collection('rooms')
+                              .doc(String(roomName))
+                              .update({
+                                tasks: firebase.firestore.FieldValue.arrayUnion({
+                                  name: String(state.taskName),
+                                  average: Object.keys(state.votes).reduce((acc, cur) => acc = acc+state.votes[cur], 0) / Object.keys(state.votes).length
+                                })
                               })
-                            })
+                          }
 
                           db.collection('rooms')
                             .doc(String(roomName))

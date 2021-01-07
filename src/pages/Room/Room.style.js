@@ -27,6 +27,11 @@ export const BoardTaskNameSection = styled.div`
   display: flex;
   flex-flow: column;
   width: 30%;
+  max-width: 380px;
+  transition: margin-left .3s ease-in-out;
+  margin-left: ${props => props.isVisible ? '0' :'-380'}px;
+  overflow-y: auto;
+  height: calc(100vh - 48px);
 `
 export const BoardTaskNameTitle = styled.h4`
   padding: 10px;

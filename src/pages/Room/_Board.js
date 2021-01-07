@@ -24,7 +24,8 @@ const Board = ({user, roomName}) => {
     showVotes: false,
     roomOwner: false,
     taskName: '',
-    membersOnline: []
+    membersOnline: [],
+    tasks: []
   })
 
   useEffect(() => {
@@ -64,6 +65,7 @@ const Board = ({user, roomName}) => {
     db.collection('rooms')
       .doc(String(roomName))
       .update({
+        lastAccess: new Date(),
         membersOnline: firebase.firestore.FieldValue.arrayUnion({
           name: user.displayName,
           photo: user.photoURL,
@@ -194,13 +196,13 @@ const Board = ({user, roomName}) => {
                         disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
                         onClick={() => {
                           db.collection('rooms')
-                          .doc(String(roomName))
-                          .set({
-                            showVotes: true
-                          }, {merge: true})
-                          .then(() => {
-                            console.log('< update showVotes : done >')
-                          })
+                            .doc(String(roomName))
+                            .set({
+                              showVotes: true
+                            }, {merge: true})
+                            .then(() => {
+                              console.log('< update showVotes : done >')
+                            })
                         }}
                       >
                         Reveal Votes
@@ -219,14 +221,23 @@ const Board = ({user, roomName}) => {
                         fullWidth
                         onClick={() => {
                           db.collection('rooms')
-                          .doc(String(roomName))
-                          .set({
-                            showVotes: false,
-                            votes: {}
-                          }, {merge: true})
-                          .then(() => {
-                            console.log('< update showVotes : done >')
-                          })
+                            .doc(String(roomName))
+                            .set({
+                              showVotes: false,
+                              votes: {}
+                            }, {merge: true})
+                            .then(() => {
+                              console.log('< update showVotes : done >')
+                            })
+
+                          db.collection('rooms')
+                            .doc(String(roomName))
+                            .update({
+                              tasks: firebase.firestore.FieldValue.arrayUnion({
+                                name: String(state.taskName),
+                                average: ''
+                              })
+                            })
                         }}
                       >
                         Reset Votes

@@ -76,6 +76,7 @@ const Home = () => {
           .set({
             membersOnline: [],
             votes: {},
+            tasks: [],
             showVotes: false,
             roomOwner: user.uid,
             roomName: form,

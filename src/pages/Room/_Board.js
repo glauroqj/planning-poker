@@ -10,6 +10,11 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
 /** icons */
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
 import DoneIcon from '@material-ui/icons/Done'
@@ -135,16 +140,24 @@ const Board = ({user, roomName}) => {
   return (
     <El.BoardContainer>
 
-      <El.BoardTaskNameSection>
-        <El.BoardTitle>
-          <Typography variant="body2" color="textSecondary" component="h3">
-            Voted Tasks
-          </Typography>
-        </El.BoardTitle>
-        <El.BoardTaskNameBody>
-          tasks name
-        </El.BoardTaskNameBody>
-      </El.BoardTaskNameSection>
+      {state.tasks.length > 0 && (
+        <El.BoardTaskNameSection isVisible={state.tasks.length > 0 ? true : false}>
+          <El.BoardTitle>
+            <Typography variant="body2" color="textSecondary" component="h3">
+              Voted Tasks
+            </Typography>
+          </El.BoardTitle>
+          <El.BoardTaskNameBody>
+
+            <List component="nav">
+              {state.tasks.map((item, idx) => (
+                <ListItem key={idx}>{item.name}: {item.average}</ListItem>
+              ))}
+            </List>
+
+          </El.BoardTaskNameBody>
+        </El.BoardTaskNameSection>
+      )}
 
       <El.BoardSection>
 

@@ -149,14 +149,14 @@ const Board = ({user, roomName}) => {
         <El.BoardTaskNameBody>
           {state.tasks.length > 0 && (
             <List component="nav">
-              {state.tasks.map(item => (
-                <>
-                <ListItem>
-                  <ListItemText primary={item.name} secondary={item.average} />
-                </ListItem>
-                <Divider />
-                </>
-              ))}
+              {state.tasks.map((item, idx) => (
+                <React.Fragment key={idx}>
+                  <ListItem className="animated fadeInLeft">
+                    <ListItemText primary={item.name} secondary={item.average} />
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              )).reverse()}
             </List>
           )}
         </El.BoardTaskNameBody>
@@ -244,7 +244,7 @@ const Board = ({user, roomName}) => {
                         disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
                         onClick={() => {
 
-                          if (state.tasks !== '') {
+                          if (state.taskName !== '') {
                             db.collection('rooms')
                               .doc(String(roomName))
                               .update({

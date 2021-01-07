@@ -98,4 +98,8 @@ export const BoardMembersImage = styled.div`
 `
 export const BoardCardButtonRevealVote = styled.div`
   margin: 5px 0;
+
+  > div {
+    margin: 5px 0;
+  }
 `

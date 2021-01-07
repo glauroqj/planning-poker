@@ -9,12 +9,24 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
 /** icons */
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
 import DoneIcon from '@material-ui/icons/Done'
 /** firebase */
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+
+const debounce = (callback, delay) => {
+  let interval
+  return (...args) => {
+    clearTimeout(interval)
+    interval = setTimeout(() => {
+      interval = null
+      callback(...args)
+    }, delay)
+  }
+}
 
 const Board = ({user, roomName}) => {
   const db = firebase.firestore()
@@ -23,9 +35,9 @@ const Board = ({user, roomName}) => {
     options: ['0',1,2,3,5,8,13,21,34,55,89,'?'],
     showVotes: false,
     roomOwner: false,
-    taskName: '',
     membersOnline: [],
-    tasks: []
+    tasks: [],
+    taskName: ''
   })
 
   useEffect(() => {
@@ -104,6 +116,21 @@ const Board = ({user, roomName}) => {
 
       })
   }
+
+  const updateTaskName = useCallback(
+    debounce(value => {
+
+      db.collection('rooms')
+      .doc(String(roomName))
+      .set({
+        taskName: value
+      }, {merge: true})
+      .then(() => {
+        console.log('< update showVotes : done >')
+      })
+
+    }, 1000)
+  )
 
   return (
     <El.BoardContainer>
@@ -185,9 +212,14 @@ const Board = ({user, roomName}) => {
                     state.roomOwner === user.uid &&
                     !state.showVotes && (
                     <El.BoardCardButtonRevealVote>
-                      <input 
-                        placeholder='Task Name'
+
+                      <TextField
+                        label='Task Name'
+                        variant='outlined'
+                        size='small'
+                        onChange={(e) => updateTaskName(e.target.value)}
                       />
+  
                       <Button 
                         size="medium"
                         color="secondary"
@@ -195,6 +227,16 @@ const Board = ({user, roomName}) => {
                         fullWidth
                         disabled={ state.membersOnline.length === Object.keys(state.votes).length ? false: true }
                         onClick={() => {
+
+                          db.collection('rooms')
+                            .doc(String(roomName))
+                            .update({
+                              tasks: firebase.firestore.FieldValue.arrayUnion({
+                                name: String(state.taskName),
+                                average: Object.keys(state.votes).reduce((acc, cur) => acc = acc+state.votes[cur], 0) / Object.keys(state.votes).length
+                              })
+                            })
+
                           db.collection('rooms')
                             .doc(String(roomName))
                             .set({
@@ -203,6 +245,7 @@ const Board = ({user, roomName}) => {
                             .then(() => {
                               console.log('< update showVotes : done >')
                             })
+                          
                         }}
                       >
                         Reveal Votes
@@ -224,19 +267,11 @@ const Board = ({user, roomName}) => {
                             .doc(String(roomName))
                             .set({
                               showVotes: false,
+                              taskName: '',
                               votes: {}
                             }, {merge: true})
                             .then(() => {
                               console.log('< update showVotes : done >')
-                            })
-
-                          db.collection('rooms')
-                            .doc(String(roomName))
-                            .update({
-                              tasks: firebase.firestore.FieldValue.arrayUnion({
-                                name: String(state.taskName),
-                                average: ''
-                              })
                             })
                         }}
                       >

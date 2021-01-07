@@ -250,7 +250,7 @@ const Board = ({user, roomName}) => {
                               .update({
                                 tasks: firebase.firestore.FieldValue.arrayUnion({
                                   name: String(state.taskName),
-                                  average: Object.keys(state.votes).reduce((acc, cur) => acc = acc+state.votes[cur], 0) / Object.keys(state.votes).length
+                                  average: Object.keys(state.votes).reduce((acc, cur) => acc = acc + (state.votes[cur] !== '?' ? state.votes[cur] : 0 ), 0) / Object.keys(state.votes).length
                                 })
                               })
                           }

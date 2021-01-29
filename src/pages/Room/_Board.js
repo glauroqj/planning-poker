@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, lazy } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 /** style */
 import * as El from './Room.style'
@@ -288,7 +288,7 @@ const Board = ({user, roomName}) => {
                 )}
               </Card>
           </El.BoardCard>
-        ))}
+        )).reverse()}
         </El.BoardMembers>
         
       </El.BoardSection>

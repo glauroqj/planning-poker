@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, lazy } from 'react'
 import PropTypes from 'prop-types'
 /** style */
 import * as El from './Room.style'
@@ -10,11 +10,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
+import Sidebar from './_Sidebar'
 /** icons */
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
 import DoneIcon from '@material-ui/icons/Done'
@@ -140,29 +136,13 @@ const Board = ({user, roomName}) => {
   return (
     <El.BoardContainer>
 
-      <El.BoardTaskNameSection isVisible={state.tasks.length > 0 ? true : false}>
-        <El.BoardTitle>
-          <Typography variant="body2" color="textSecondary" component="h3">
-            Voted Tasks
-          </Typography>
-        </El.BoardTitle>
-        <El.BoardTaskNameBody>
-          {state.tasks.length > 0 && (
-            <List component="nav">
-              {state.tasks.map((item, idx) => (
-                <React.Fragment key={idx}>
-                  <ListItem className="animated fadeInLeft">
-                    <ListItemText primary={item.name} secondary={item.average} />
-                  </ListItem>
-                  <Divider />
-                </React.Fragment>
-              )).reverse()}
-            </List>
-          )}
-        </El.BoardTaskNameBody>
-      </El.BoardTaskNameSection>
+      {/** sidebar */}
+      <Sidebar tasks={state.tasks} />
 
-      <El.BoardSection>
+      <El.BoardSection 
+        hasSidebar={state.tasks.length > 0 ? true : false}
+        className="animated fadeIn"
+      >
 
         <El.BoardTitle>
           <Typography variant="body2" color="textSecondary" component="h3">

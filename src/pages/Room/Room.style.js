@@ -44,7 +44,9 @@ export const BoardTaskNameBody = styled.div`
 export const BoardSection = styled.div`
   display: flex;
   flex-flow: column;
-  width: 70%;
+  transition: width .3s ease-in-out;
+  width: ${props => props.hasSidebar ? '70': '100'}%;
+  align-items: center;
 `
 
 export const BoardTitle = styled.div`

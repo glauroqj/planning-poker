@@ -26,7 +26,7 @@ const Navbar = () => {
   }, [user])
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className="animated fadeInDown">
       <Toolbar variant="dense">
         <El.NavbarContainer>
           <Link to='/'>

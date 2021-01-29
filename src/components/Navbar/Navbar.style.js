@@ -15,6 +15,8 @@ export const NavbarUser = styled.div`
   display: flex;
   border: 1px solid #f5f5f5;
   border-radius: 50%;
+  max-height: 40px;
+  max-width: 40px;
 
   &:hover {
     cursor: pointer;

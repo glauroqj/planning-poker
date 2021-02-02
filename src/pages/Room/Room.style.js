@@ -22,6 +22,21 @@ export const BoardContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
+
+  // 1100px
+  @media ( max-width: ${props => props.theme.breakpoint.md } ) {
+
+  }
+
+  // 830px
+  @media( max-width: ${props => props.theme.breakpoint.sm} ) {
+    flex-flow: column wrap;
+  }
+
+  // 640px
+  @media( max-width: ${props => props.theme.breakpoint.xs} ) {
+    
+  }
 `
 /** SIDEBAR */
 export const BoardTaskNameSection = styled.div`
@@ -47,7 +62,9 @@ export const BoardTaskNameSection = styled.div`
 
   // 640px
   @media( max-width: ${props => props.theme.breakpoint.xs} ) {
-    
+    width: 100%;
+    max-width: 100%;
+    height: 145px;
   }
 `
 export const BoardTaskNameTitle = styled.h4`
@@ -57,6 +74,21 @@ export const BoardTaskNameTitle = styled.h4`
 export const BoardTaskNameBody = styled.div`
   display: flex;
   flex-flow: column;
+
+  // 640px
+  @media( max-width: ${props => props.theme.breakpoint.xs} ) {
+    nav {
+      display: flex;
+      flex-flow: row;
+      overflow-x: scroll;
+      width: 100%;
+      border-bottom: 1px solid #eee;
+
+      li {
+
+      }
+    }
+  }
 `
 /** BOARD */
 export const BoardSection = styled.div`
@@ -65,6 +97,11 @@ export const BoardSection = styled.div`
   transition: width .3s ease-in-out;
   width: ${props => props.hasSidebar ? 70: 100}%;
   align-items: center;
+
+  // 640px
+  @media( max-width: ${props => props.theme.breakpoint.xs} ) {
+    width: 100%;
+  }
 `
 
 export const BoardTitle = styled.div`

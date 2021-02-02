@@ -151,7 +151,7 @@ const Board = ({user, roomName}) => {
         </El.BoardTitle>
         
         <El.BoardButtonValues>
-          <ButtonGroup color="primary" size="large">
+          <ButtonGroup disableElevation color="primary" size="small">
             {state.options.map((item, idx) => (
               <Button 
                 key={idx}

@@ -23,15 +23,32 @@ export const BoardContainer = styled.div`
   flex-flow: row wrap;
   width: 100%;
 `
+/** SIDEBAR */
 export const BoardTaskNameSection = styled.div`
   display: flex;
   flex-flow: column;
   width: 30%;
   max-width: 380px;
   transition: margin-left .3s ease-in-out;
-  margin-left: ${props => props.isVisible ? '0' :'-380'}px;
+  margin-left: ${props => props.isVisible ? 0 : -380}px;
   overflow-y: auto;
   height: calc(100vh - 48px);
+
+  // 1100px
+  @media ( max-width: ${props => props.theme.breakpoint.md } ) {
+
+  }
+
+  // 830px
+  @media( max-width: ${props => props.theme.breakpoint.sm} ) {
+    max-width: 231px;
+    margin-left: ${props => props.isVisible ? 0 : -231}px;
+  }
+
+  // 640px
+  @media( max-width: ${props => props.theme.breakpoint.xs} ) {
+    
+  }
 `
 export const BoardTaskNameTitle = styled.h4`
   padding: 10px;
@@ -41,11 +58,12 @@ export const BoardTaskNameBody = styled.div`
   display: flex;
   flex-flow: column;
 `
+/** BOARD */
 export const BoardSection = styled.div`
   display: flex;
   flex-flow: column;
   transition: width .3s ease-in-out;
-  width: ${props => props.hasSidebar ? '70': '100'}%;
+  width: ${props => props.hasSidebar ? 70: 100}%;
   align-items: center;
 `
 

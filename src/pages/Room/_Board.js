@@ -238,7 +238,8 @@ const Board = ({user, roomName}) => {
                           db.collection('rooms')
                             .doc(String(roomName))
                             .set({
-                              showVotes: true
+                              showVotes: true,
+                              taskName: ''
                             }, {merge: true})
                             .then(() => {
                               console.log('< update showVotes : done >')

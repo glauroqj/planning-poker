@@ -81,7 +81,8 @@ export const BoardTaskNameBody = styled.div`
     flex-flow: column;
 
     li {
-
+      padding: 8px 10px;
+      border-top: 1px solid #eee;
     }
   }
 
@@ -102,13 +103,35 @@ export const BoardTaskNameBody = styled.div`
 `
 export const BoardTaskNameList = styled.li`
 `
-export const TaskName = styled.div``
+export const TaskName = styled.div`
+  font-size: 14px;
+  font-weight: ${props=> props.theme.typography.fontWeight.bold};
+  padding-bottom: 5px;
+
+  span {
+    font-size: 10px;
+    font-weight: ${props=> props.theme.typography.fontWeight.normal};
+  }
+`
 export const TaskInformation = styled.div`
   display: flex;
   flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
 `
-export const TaskAverage = styled.div``
-export const TaskDate = styled.div``
+export const TaskAverage = styled.div`
+  font-size: 14px;
+  font-weight: ${props=> props.theme.typography.fontWeight.medium};
+
+  span {
+    font-size: 10px;
+    font-weight: ${props=> props.theme.typography.fontWeight.normal};
+  }
+`
+export const TaskDate = styled.div`
+  font-size: 10px;
+  font-weight: ${props=> props.theme.typography.fontWeight.normal};
+`
 /** BOARD */
 export const BoardSection = styled.div`
   display: flex;

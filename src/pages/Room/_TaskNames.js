@@ -23,9 +23,9 @@ const Sidebar = ({tasks}) =>
             {tasks.map((item, idx) => (
               <El.BoardTaskNameList key={idx} className='animated fadeInLeft'>
                 
-                <El.TaskName>{item.name}</El.TaskName>
+                <El.TaskName><span>Name:</span> {item.name}</El.TaskName>
                 <El.TaskInformation>
-                  <El.TaskAverage>{item.average}</El.TaskAverage>
+                  <El.TaskAverage><span>Avg:</span> {item.average}</El.TaskAverage>
                   {item?.date && (
                     <El.TaskDate>{ item.date.toDate().toLocaleDateString('pt-BR', {year: 'numeric', month: 'numeric', day: 'numeric'}) }</El.TaskDate>
                   )}

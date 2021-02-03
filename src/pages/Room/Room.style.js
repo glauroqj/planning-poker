@@ -30,12 +30,11 @@ export const BoardContainer = styled.div`
 
   // 830px
   @media( max-width: ${props => props.theme.breakpoint.sm} ) {
-    flex-flow: column wrap;
   }
 
   // 640px
   @media( max-width: ${props => props.theme.breakpoint.xs} ) {
-    
+    flex-flow: column wrap;
   }
 `
 /** SIDEBAR */
@@ -44,7 +43,7 @@ export const BoardTaskNameSection = styled.div`
   flex-flow: column;
   width: 30%;
   max-width: 380px;
-  transition: margin-left .3s ease-in-out;
+  transition: margin-left .3s ease-in-out, height .3s ease-in-out;
   margin-left: ${props => props.isVisible ? 0 : -380}px;
   overflow-y: auto;
   height: calc(100vh - 48px);
@@ -65,7 +64,8 @@ export const BoardTaskNameSection = styled.div`
   @media( max-width: ${props => props.theme.breakpoint.xs} ) {
     width: 100%;
     max-width: 100%;
-    height: 145px;
+    height: ${props => props.isVisible ? 145 : 0}px;
+    margin-left: ${props => props.isVisible ? 0 : -380}px;
   }
 `
 export const BoardTaskNameTitle = styled.h4`

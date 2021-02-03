@@ -35,18 +35,6 @@ const Sidebar = ({tasks}) =>
             )).reverse()}
           </ul>
         )}
-        {/* {tasks.length > 0 && (
-          <List component="nav">
-            {tasks.map((item, idx) => (
-              <React.Fragment key={idx}>
-                <ListItem className="animated fadeInLeft">
-                  <ListItemText primary={item.name} secondary={item.average} />
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            )).reverse()}
-          </List>
-        )} */}
       </El.BoardTaskNameBody>
     </El.BoardTaskNameSection>
   ),[tasks]

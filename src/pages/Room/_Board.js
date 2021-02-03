@@ -10,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import Sidebar from './_Sidebar'
+import TaskNames from './_TaskNames'
 /** icons */
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents'
 import DoneIcon from '@material-ui/icons/Done'
@@ -137,7 +137,7 @@ const Board = ({user, roomName}) => {
     <El.BoardContainer>
 
       {/** sidebar */}
-      <Sidebar tasks={state.tasks} />
+      <TaskNames tasks={state.tasks} />
 
       <El.BoardSection 
         hasSidebar={state.tasks.length > 0 ? true : false}
@@ -230,7 +230,8 @@ const Board = ({user, roomName}) => {
                               .update({
                                 tasks: firebase.firestore.FieldValue.arrayUnion({
                                   name: String(state.taskName),
-                                  average: Object.keys(state.votes).reduce((acc, cur) => acc = acc + (state.votes[cur] !== '?' ? state.votes[cur] : 0 ), 0) / Object.keys(state.votes).length
+                                  average: Object.keys(state.votes).reduce((acc, cur) => acc = acc + (state.votes[cur] !== '?' ? state.votes[cur] : 0 ), 0) / Object.keys(state.votes).length,
+                                  date: new Date()
                                 })
                               })
                           }

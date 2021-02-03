@@ -18,7 +18,24 @@ const Sidebar = ({tasks}) =>
         </Typography>
       </El.BoardTitle>
       <El.BoardTaskNameBody>
-        {tasks.length > 0 && (
+      {tasks.length > 0 && (
+          <ul>
+            {tasks.map((item, idx) => (
+              <El.BoardTaskNameList key={idx} className='animated fadeInLeft'>
+                
+                <El.TaskName>{item.name}</El.TaskName>
+                <El.TaskInformation>
+                  <El.TaskAverage>{item.average}</El.TaskAverage>
+                  {item?.date && (
+                    <El.TaskDate>{ item.date.toDate().toLocaleDateString('pt-BR', {year: 'numeric', month: 'numeric', day: 'numeric'}) }</El.TaskDate>
+                  )}
+                </El.TaskInformation>
+
+              </El.BoardTaskNameList>
+            )).reverse()}
+          </ul>
+        )}
+        {/* {tasks.length > 0 && (
           <List component="nav">
             {tasks.map((item, idx) => (
               <React.Fragment key={idx}>
@@ -29,7 +46,7 @@ const Sidebar = ({tasks}) =>
               </React.Fragment>
             )).reverse()}
           </List>
-        )}
+        )} */}
       </El.BoardTaskNameBody>
     </El.BoardTaskNameSection>
   ),[tasks]

@@ -49,7 +49,6 @@ const FontWeight = {
   bold: 700
 }
 
-
 export const ThemeMaterialUI = createMuiTheme({
   palette: {
     primary: {

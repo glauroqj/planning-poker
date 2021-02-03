@@ -48,6 +48,7 @@ export const BoardTaskNameSection = styled.div`
   margin-left: ${props => props.isVisible ? 0 : -380}px;
   overflow-y: auto;
   height: calc(100vh - 48px);
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 
   // 1100px
   @media ( max-width: ${props => props.theme.breakpoint.md } ) {
@@ -75,9 +76,18 @@ export const BoardTaskNameBody = styled.div`
   display: flex;
   flex-flow: column;
 
+  ul {
+    display: flex;
+    flex-flow: column;
+
+    li {
+
+    }
+  }
+
   // 640px
   @media( max-width: ${props => props.theme.breakpoint.xs} ) {
-    nav {
+    ul {
       display: flex;
       flex-flow: row;
       overflow-x: scroll;
@@ -90,6 +100,15 @@ export const BoardTaskNameBody = styled.div`
     }
   }
 `
+export const BoardTaskNameList = styled.li`
+`
+export const TaskName = styled.div``
+export const TaskInformation = styled.div`
+  display: flex;
+  flex-flow: row;
+`
+export const TaskAverage = styled.div``
+export const TaskDate = styled.div``
 /** BOARD */
 export const BoardSection = styled.div`
   display: flex;

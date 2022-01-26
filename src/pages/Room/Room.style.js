@@ -162,6 +162,7 @@ export const BoardSection = styled.div`
 
 export const BoardTitle = styled.div`
   display: flex;
+  flex-flow: column;
   justify-content: space-around;
   margin-bottom: 15px;
   padding: 10px;
@@ -169,6 +170,18 @@ export const BoardTitle = styled.div`
   b {
     font-weight: 700;
     color: #7befb2;
+  }
+
+  // 640px
+  @media (max-width: ${(props) => props.theme.breakpoint.xs}) {
+  }
+`;
+export const ShareButtonContainer = styled.div`
+  display: flex;
+  margin-top 14px;
+
+  // 640px
+  @media (max-width: ${(props) => props.theme.breakpoint.xs}) {
   }
 `;
 export const BoardButtonValues = styled.div`

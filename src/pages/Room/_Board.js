@@ -10,10 +10,16 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
 import TaskNames from "./_TaskNames";
 /** icons */
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import DoneIcon from "@mui/icons-material/Done";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 /** firebase */
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -146,6 +152,40 @@ const Board = ({ user, roomName }) => {
           <Typography variant="body2" color="textSecondary" component="h3">
             Online Members: <b>{state.membersOnline.length}</b>
           </Typography>
+
+          <El.ShareButtonContainer>
+            <FormControl sx={{ width: "100%" }} variant="outlined">
+              <InputLabel htmlFor="share-room-link">Share Room Link</InputLabel>
+              <OutlinedInput
+                id="share-room-link"
+                type={"text"}
+                value={window.location.href}
+                onChange={() => false}
+                size="small"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        const text = document.getElementById("share-room-link");
+                        /* Select the text field */
+                        text.select();
+                        text.setSelectionRange(
+                          0,
+                          99999
+                        ); /* For mobile devices */
+                        navigator.clipboard.writeText(text.value);
+                      }}
+                      edge="end"
+                    >
+                      <ContentCopyIcon />
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Share Room Link"
+              />
+            </FormControl>
+          </El.ShareButtonContainer>
         </El.BoardTitle>
 
         <El.BoardButtonValues>

@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  planning_poker_local:
+    container_name: planning_poker_local
+    privileged: true
+    working_dir: /app
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/app
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"

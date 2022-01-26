@@ -3,17 +3,17 @@ import PropTypes from "prop-types";
 /** style */
 import * as El from "./Room.style";
 /** components */
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 import TaskNames from "./_TaskNames";
 /** icons */
-import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
-import DoneIcon from "@material-ui/icons/Done";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import DoneIcon from "@mui/icons-material/Done";
 /** firebase */
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";

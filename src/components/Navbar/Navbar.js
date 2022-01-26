@@ -5,15 +5,15 @@ import * as El from "./Navbar.style";
 /** providers */
 import { SessionContext } from "providers/Session";
 /** components */
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 /** icons */
-import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const Navbar = () => {
   const { user, logoutMethod } = useContext(SessionContext);

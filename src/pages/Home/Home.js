@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext, memo } from "react";
+import React, { useState, useEffect } from "react";
 /** style */
 import * as El from "./Home.style";
 /** providers */
-import { SessionContext } from "providers/Session";
+import { useSession } from "providers/Session";
 /** components */
 import Navbar from "components/Navbar/Navbar";
 import Loading from "components/Loading/Loading";
@@ -15,7 +15,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 
 const Home = () => {
-  const { user, loginMethod } = useContext(SessionContext);
+  const { user, loginMethod } = useSession();
 
   const [form, setForm] = useState("");
   const [state, setState] = useState({
@@ -124,4 +124,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default Home;

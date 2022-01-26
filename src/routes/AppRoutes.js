@@ -6,7 +6,7 @@ import React, {
   useContext,
   memo,
 } from "react";
-import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 /** components */
 import Loading from "components/Loading/Loading";
 /** providers */
@@ -50,10 +50,10 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Suspense fallback={<Loading text="Loading..." />}>
         <Routes>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/room/:roomID" component={Room} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/room/:roomID" element={<Room />} />
           {/* <PrivateRoute exact path="/room/:roomID" component={Room} /> */}
-          <Redirect push to="/" />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

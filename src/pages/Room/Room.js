@@ -1,23 +1,23 @@
-import React, { useState, useEffect, memo, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 /** style */
 import * as El from "./Room.style";
 /** providers */
-import { SessionContext } from "providers/Session";
+import { useSession } from "providers/Session";
 /** components */
 import Navbar from "components/Navbar/Navbar";
 import Board from "./_Board";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 import Loading from "components/Loading/Loading";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 /** icons */
-import EmailIcon from "@material-ui/icons/Email";
+import EmailIcon from "@mui/icons-material/Email";
 /** firebase */
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 
 const Room = () => {
-  const { user, loginMethod } = useContext(SessionContext);
+  const { user, loginMethod } = useSession();
   const [state, setState] = useState({
     loading: true,
     isValidRoom: false,
@@ -108,4 +108,4 @@ const Room = () => {
   );
 };
 
-export default memo(Room);
+export default Room;

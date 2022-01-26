@@ -18,8 +18,9 @@
     "delete-volumes": "docker volume rm $(docker volume ls -q)"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.3.1",
     "@mui/material": "^5.3.1",
     "@mui/styled-engine-sc": "^5.3.0",
     "firebase": "^9.6.4",

@@ -1,38 +1,35 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react";
+import ReactDOM from "react-dom";
 
 /** firebase */
-import firebase from 'firebase/app'
-import credentials from './credentials'
+import { initializeApp } from "firebase/app";
+import credentials from "./credentials";
 /** routes */
-import Routes from './routes/Routes'
+import AppRoutes from "./routes/AppRoutes";
 
 /** style */
-import { ThemeProvider as ThemePRoviderMaterialUI } from '@material-ui/styles'
-import { ThemeProvider } from 'styled-components'
-import { GlobalStyle, Theme, ThemeMaterialUI } from 'assets/style'
+import { ThemeProvider as ThemePRoviderMaterialUI } from "@material-ui/core/styles";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, Theme, ThemeMaterialUI } from "assets/style";
 
 /** provider */
-import { SessionProvider } from 'providers/Session'
+import { SessionProvider } from "providers/Session";
 
 /** start */
-firebase.initializeApp(credentials)
+initializeApp(credentials);
 
-ReactDOM.render(
+const appTree = (
   <React.StrictMode>
-
     <GlobalStyle />
 
     <ThemePRoviderMaterialUI theme={ThemeMaterialUI}>
       <ThemeProvider theme={Theme}>
-
         <SessionProvider>
-          <Routes />
+          <AppRoutes />
         </SessionProvider>
-
       </ThemeProvider>
     </ThemePRoviderMaterialUI>
+  </React.StrictMode>
+);
 
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+ReactDOM.render(appTree, document.getElementById("root"));
